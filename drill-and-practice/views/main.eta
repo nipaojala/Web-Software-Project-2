@@ -1,0 +1,12 @@
+<% layout("./layouts/layout.eta") %>
+
+<h2>This is app for creating and answering questions!</h2>
+<p>Only admins can create and remove topics, but any authenticated user can remove answer options and questions!</p> 
+<p>If this is your first time you use this application, start by <a href="/auth/register "> registering</a>.</p>
+<p>Otherwise you can just <a href="/auth/login"> login</a>.</p>
+
+
+<p> Statistics: </p>
+<p> Topics: <%= it.topics.length %> </p>
+<p> Questions: <%= it.questions.length %> </p>
+<p> Answers from users: <%= it.answersFromUsers.length %> </p>

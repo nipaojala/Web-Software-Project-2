@@ -1,0 +1,50 @@
+<% layout("./layouts/layout.eta") %>
+
+<h2>Topics</h2>
+
+<% if (it.topics && it.topics.length > 0) { %>
+  <% if (it.user.admin) { %>
+    <ul>
+    <% it.topics.forEach(topic => { %>
+      <li><div id="topics"><a href="/topics/<%= topic.id %>"> <%= topic.name %> </div></a> <form action="/topics/<%= topic.id %>/delete" method="POST">
+    <input type="submit" value="Delete" /></li>
+    </form> <% }); %>
+    </ul>
+  <% } else { %>  
+    <ul>
+    <% it.topics.forEach(topic => { %>
+      <li><a href="/topics/<%= topic.id %>"> <%= topic.name %> </a></li>
+    <% }); %>
+    </ul>
+  <% } %>
+<% } else { %>
+
+  <p>None topics available.</p>
+
+<% } %>
+
+<% if (it.user.admin) { %>
+
+<h2>Add topic!</h2>
+
+<% if (it.validationErrors) { %>
+<ul>
+    <% Object.keys(it.validationErrors).forEach((attribute) => { %>
+        <% Object.values(it.validationErrors[attribute]).forEach((err) => { %>
+            <li><%= err %></li>
+        <% }); %>
+    <% }); %>
+</ul>
+<% } %>
+
+<form method="POST" action="/topics">
+Topic name:<br/>
+<input type="text" name="name" value="<%= it.name ? it.name : "" %>"/><br/>
+<input type="submit" value="Add"/>
+</form>
+
+<% } else { %>
+
+<p> Not authorized to add topics </p>
+
+<% } %>
